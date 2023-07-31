@@ -26,7 +26,7 @@ namespace VogueLink2.Controllers
 
             return View();
         }
-        public ActionResult TestGit()
+        public ActionResult Testing()
         {
             ViewBag.Message = "updated.";
 
