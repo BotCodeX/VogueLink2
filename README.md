@@ -1,2 +1,2 @@
-# VogueLink2
+# VogueLink
 Ongoing Project
