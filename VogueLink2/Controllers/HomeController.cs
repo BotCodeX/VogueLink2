@@ -26,5 +26,11 @@ namespace VogueLink2.Controllers
 
             return View();
         }
+        public ActionResult TestGit()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }
