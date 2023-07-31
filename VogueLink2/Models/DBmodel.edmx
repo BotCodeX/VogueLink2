@@ -1,0 +1,936 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="voguelinkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Admin_Id" />
+          </Key>
+          <Property Name="Admin_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Admin_FName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Admin_LName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Admin_Email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Admin_Pass" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Admin_Add" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Admin_Phone" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Admin_DOB" Type="date" Nullable="false" />
+          <Property Name="Admin_Salary" Type="int" Nullable="false" />
+          <Property Name="Admin_DP" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Cart_Id" />
+          </Key>
+          <Property Name="Cart_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="Customer_Id" Type="int" Nullable="false" />
+          <Property Name="Promo_Id" Type="int" Nullable="false" />
+          <Property Name="Product_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Complains">
+          <Key>
+            <PropertyRef Name="Complains_Id" />
+          </Key>
+          <Property Name="Complains_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Complains_Complain" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Order_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_FName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Customer_LName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Customer_Email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Customer_Pass" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Customer_Phone" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Customer_Gender" Type="varchar" MaxLength="8" />
+          <Property Name="Customer_District" Type="varchar" MaxLength="12" />
+          <Property Name="Customer_City" Type="varchar" MaxLength="15" />
+          <Property Name="Customer_Area" Type="varchar" MaxLength="15" />
+          <Property Name="Customer_Ship" Type="varchar" MaxLength="50" />
+          <Property Name="Customer_DP" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Favourates">
+          <Key>
+            <PropertyRef Name="Favourates_Id" />
+          </Key>
+          <Property Name="Favourates_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_Id" Type="int" Nullable="false" />
+          <Property Name="Product_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Invoice_PaymentMethod" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Invoice_PaymentStatus" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Order_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="NotId" />
+          </Key>
+          <Property Name="NotId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Not_Sender" Type="int" Nullable="false" />
+          <Property Name="Not_Rec" Type="int" Nullable="false" />
+          <Property Name="Not_Text" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Not_Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Placed_Date" Type="date" Nullable="false" />
+          <Property Name="Delivery_Date" Type="date" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Total_Price" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="Product_Id" Type="int" Nullable="false" />
+          <Property Name="Customer_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_Brand" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_Price" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="Product_Quantity" Type="int" Nullable="false" />
+          <Property Name="Product_Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_Gender" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Product_Material" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="Product_Size" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Product_Color" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Product_Img1" Type="nvarchar" MaxLength="500" />
+          <Property Name="Product_Img2" Type="nvarchar" MaxLength="500" />
+          <Property Name="Product_Img3" Type="nvarchar" MaxLength="500" />
+          <Property Name="Product_Img4" Type="nvarchar" MaxLength="500" />
+          <Property Name="Seller_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PromoCode">
+          <Key>
+            <PropertyRef Name="Promo_Id" />
+          </Key>
+          <Property Name="Promo_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Discount" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="Min_Amount" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Review_Id" />
+          </Key>
+          <Property Name="Review_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Review" Type="varchar" MaxLength="100" />
+          <Property Name="Rating" Type="decimal" Precision="2" Scale="1" Nullable="false" />
+          <Property Name="Customer_Id" Type="int" Nullable="false" />
+          <Property Name="Product_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="Seller_Id" />
+          </Key>
+          <Property Name="Seller_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Seller_BrandName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Seller_OwnersName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Seller_NationalIdNO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Seller_Email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Seller_Phone" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Seller_Pass" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Seller_BankAccount" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="Seller_TradeLicenseNo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Seller_BusinessAddress" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Seller_District" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Seller_City" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Seller_Area" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Seller_Status" Type="varchar" MaxLength="30" />
+          <Property Name="Seller_DP" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK__Cart__Customer_I__571DF1D5">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__Product_Id__59063A47">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__Promo_Id__5812160E">
+          <End Role="PromoCode" Type="Self.PromoCode" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromoCode">
+              <PropertyRef Name="Promo_Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Promo_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Complains__Order__6A30C649">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Complains" Type="Self.Complains" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="Complains">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Favourate__Custo__66603565">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Favourates" Type="Self.Favourates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="Favourates">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Favourate__Produ__6754599E">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Favourates" Type="Self.Favourates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="Favourates">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Invoice__Order_I__5FB337D6">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Customer__49C3F6B7">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Product___48CFD27E">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__Seller___2F10007B">
+          <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="Seller_Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Seller_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Review__Customer__5BE2A6F2">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Review__Product___5CD6CB2B">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="voguelinkModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Complains" EntityType="Self.Complains" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Favourates" EntityType="Self.Favourates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromoCode" EntityType="Self.PromoCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Cart__Customer_I__571DF1D5" Association="Self.FK__Cart__Customer_I__571DF1D5">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__Product_Id__59063A47" Association="Self.FK__Cart__Product_Id__59063A47">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__Promo_Id__5812160E" Association="Self.FK__Cart__Promo_Id__5812160E">
+            <End Role="PromoCode" EntitySet="PromoCode" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Complains__Order__6A30C649" Association="Self.FK__Complains__Order__6A30C649">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Complains" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Favourate__Custo__66603565" Association="Self.FK__Favourate__Custo__66603565">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Favourates" EntitySet="Favourates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Favourate__Produ__6754599E" Association="Self.FK__Favourate__Produ__6754599E">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Favourates" EntitySet="Favourates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Invoice__Order_I__5FB337D6" Association="Self.FK__Invoice__Order_I__5FB337D6">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Customer__49C3F6B7" Association="Self.FK__Orders__Customer__49C3F6B7">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Product___48CFD27E" Association="Self.FK__Orders__Product___48CFD27E">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__Seller___2F10007B" Association="Self.FK__Product__Seller___2F10007B">
+            <End Role="Seller" EntitySet="Seller" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Review__Customer__5BE2A6F2" Association="Self.FK__Review__Customer__5BE2A6F2">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Review__Product___5CD6CB2B" Association="Self.FK__Review__Product___5CD6CB2B">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="voguelinkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Admin_Id" />
+          </Key>
+          <Property Name="Admin_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Admin_FName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Admin_LName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Admin_Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Admin_Pass" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Admin_Add" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Admin_Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Admin_DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Admin_Salary" Type="Int32" Nullable="false" />
+          <Property Name="Admin_DP" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Cart_Id" />
+          </Key>
+          <Property Name="Cart_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" />
+          <Property Name="Promo_Id" Type="Int32" Nullable="false" />
+          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Cart__Customer_I__571DF1D5" FromRole="Cart" ToRole="Customer" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Cart__Product_Id__59063A47" FromRole="Cart" ToRole="Product" />
+          <NavigationProperty Name="PromoCode" Relationship="Self.FK__Cart__Promo_Id__5812160E" FromRole="Cart" ToRole="PromoCode" />
+        </EntityType>
+        <EntityType Name="Complain">
+          <Key>
+            <PropertyRef Name="Complains_Id" />
+          </Key>
+          <Property Name="Complains_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Complains_Complain" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Order_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Complains__Order__6A30C649" FromRole="Complains" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_FName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Customer_LName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Customer_Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Customer_Pass" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Customer_Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Customer_Gender" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Customer_District" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Customer_City" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Customer_Area" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Customer_Ship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Customer_DP" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__Cart__Customer_I__571DF1D5" FromRole="Customer" ToRole="Cart" />
+          <NavigationProperty Name="Favourates" Relationship="Self.FK__Favourate__Custo__66603565" FromRole="Customer" ToRole="Favourates" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Customer__49C3F6B7" FromRole="Customer" ToRole="Orders" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Review__Customer__5BE2A6F2" FromRole="Customer" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="Favourate">
+          <Key>
+            <PropertyRef Name="Favourates_Id" />
+          </Key>
+          <Property Name="Favourates_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" />
+          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Favourate__Custo__66603565" FromRole="Favourates" ToRole="Customer" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Favourate__Produ__6754599E" FromRole="Favourates" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Invoice_PaymentMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Invoice_PaymentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Order_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Invoice__Order_I__5FB337D6" FromRole="Invoice" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Placed_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Delivery_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Total_Price" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Complains" Relationship="Self.FK__Complains__Order__6A30C649" FromRole="Orders" ToRole="Complains" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__Customer__49C3F6B7" FromRole="Orders" ToRole="Customer" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK__Invoice__Order_I__5FB337D6" FromRole="Orders" ToRole="Invoice" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Orders__Product___48CFD27E" FromRole="Orders" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_Price" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="Product_Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Product_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_Gender" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_Material" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_Size" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_Color" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_Img1" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Product_Img2" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Product_Img3" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Product_Img4" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Seller_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__Cart__Product_Id__59063A47" FromRole="Product" ToRole="Cart" />
+          <NavigationProperty Name="Favourates" Relationship="Self.FK__Favourate__Produ__6754599E" FromRole="Product" ToRole="Favourates" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Product___48CFD27E" FromRole="Product" ToRole="Orders" />
+          <NavigationProperty Name="Seller" Relationship="Self.FK__Product__Seller___2F10007B" FromRole="Product" ToRole="Seller" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Review__Product___5CD6CB2B" FromRole="Product" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="PromoCode">
+          <Key>
+            <PropertyRef Name="Promo_Id" />
+          </Key>
+          <Property Name="Promo_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Discount" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="Min_Amount" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__Cart__Promo_Id__5812160E" FromRole="PromoCode" ToRole="Cart" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Review_Id" />
+          </Key>
+          <Property Name="Review_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Review1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Rating" Type="Decimal" Precision="2" Scale="1" Nullable="false" />
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" />
+          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Review__Customer__5BE2A6F2" FromRole="Review" ToRole="Customer" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Review__Product___5CD6CB2B" FromRole="Review" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="Seller_Id" />
+          </Key>
+          <Property Name="Seller_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Seller_BrandName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_OwnersName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_NationalIdNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_Pass" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_BankAccount" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_TradeLicenseNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_BusinessAddress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_District" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_City" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_Area" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seller_Status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Seller_DP" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Product__Seller___2F10007B" FromRole="Seller" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK__Cart__Customer_I__571DF1D5">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__Product_Id__59063A47">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__Promo_Id__5812160E">
+          <End Role="PromoCode" Type="Self.PromoCode" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromoCode">
+              <PropertyRef Name="Promo_Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Promo_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Complains__Order__6A30C649">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="Complains" Type="Self.Complain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="Complains">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Favourate__Custo__66603565">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Favourates" Type="Self.Favourate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="Favourates">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Customer__49C3F6B7">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Review__Customer__5BE2A6F2">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Favourate__Produ__6754599E">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Favourates" Type="Self.Favourate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="Favourates">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Invoice__Order_I__5FB337D6">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Product___48CFD27E">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__Seller___2F10007B">
+          <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="Seller_Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Seller_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Review__Product___5CD6CB2B">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="voguelinkEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Carts" EntityType="Self.Cart" />
+          <EntitySet Name="Complains" EntityType="Self.Complain" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Favourates" EntityType="Self.Favourate" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="PromoCodes" EntityType="Self.PromoCode" />
+          <EntitySet Name="Reviews" EntityType="Self.Review" />
+          <EntitySet Name="Sellers" EntityType="Self.Seller" />
+          <AssociationSet Name="FK__Cart__Customer_I__571DF1D5" Association="Self.FK__Cart__Customer_I__571DF1D5">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__Product_Id__59063A47" Association="Self.FK__Cart__Product_Id__59063A47">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__Promo_Id__5812160E" Association="Self.FK__Cart__Promo_Id__5812160E">
+            <End Role="PromoCode" EntitySet="PromoCodes" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Complains__Order__6A30C649" Association="Self.FK__Complains__Order__6A30C649">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Complains" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Favourate__Custo__66603565" Association="Self.FK__Favourate__Custo__66603565">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Favourates" EntitySet="Favourates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Customer__49C3F6B7" Association="Self.FK__Orders__Customer__49C3F6B7">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Review__Customer__5BE2A6F2" Association="Self.FK__Review__Customer__5BE2A6F2">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Favourate__Produ__6754599E" Association="Self.FK__Favourate__Produ__6754599E">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Favourates" EntitySet="Favourates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Invoice__Order_I__5FB337D6" Association="Self.FK__Invoice__Order_I__5FB337D6">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Product___48CFD27E" Association="Self.FK__Orders__Product___48CFD27E">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__Seller___2F10007B" Association="Self.FK__Product__Seller___2F10007B">
+            <End Role="Seller" EntitySet="Sellers" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Review__Product___5CD6CB2B" Association="Self.FK__Review__Product___5CD6CB2B">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <EntitySet Name="Notifications" EntityType="voguelinkModel.Notification" />
+        </EntityContainer>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="NotId" />
+          </Key>
+          <Property Name="NotId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Not_Sender" Type="Int32" Nullable="false" />
+          <Property Name="Not_Rec" Type="Int32" Nullable="false" />
+          <Property Name="Not_Text" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Not_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="voguelinkModelStoreContainer" CdmEntityContainer="voguelinkEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="voguelinkModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="Admin_Id" ColumnName="Admin_Id" />
+                <ScalarProperty Name="Admin_FName" ColumnName="Admin_FName" />
+                <ScalarProperty Name="Admin_LName" ColumnName="Admin_LName" />
+                <ScalarProperty Name="Admin_Email" ColumnName="Admin_Email" />
+                <ScalarProperty Name="Admin_Pass" ColumnName="Admin_Pass" />
+                <ScalarProperty Name="Admin_Add" ColumnName="Admin_Add" />
+                <ScalarProperty Name="Admin_Phone" ColumnName="Admin_Phone" />
+                <ScalarProperty Name="Admin_DOB" ColumnName="Admin_DOB" />
+                <ScalarProperty Name="Admin_Salary" ColumnName="Admin_Salary" />
+                <ScalarProperty Name="Admin_DP" ColumnName="Admin_DP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="voguelinkModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="Cart_Id" ColumnName="Cart_Id" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="Promo_Id" ColumnName="Promo_Id" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Complains">
+            <EntityTypeMapping TypeName="voguelinkModel.Complain">
+              <MappingFragment StoreEntitySet="Complains">
+                <ScalarProperty Name="Complains_Id" ColumnName="Complains_Id" />
+                <ScalarProperty Name="Complains_Complain" ColumnName="Complains_Complain" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="voguelinkModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="Customer_FName" ColumnName="Customer_FName" />
+                <ScalarProperty Name="Customer_LName" ColumnName="Customer_LName" />
+                <ScalarProperty Name="Customer_Email" ColumnName="Customer_Email" />
+                <ScalarProperty Name="Customer_Pass" ColumnName="Customer_Pass" />
+                <ScalarProperty Name="Customer_Phone" ColumnName="Customer_Phone" />
+                <ScalarProperty Name="Customer_Gender" ColumnName="Customer_Gender" />
+                <ScalarProperty Name="Customer_District" ColumnName="Customer_District" />
+                <ScalarProperty Name="Customer_City" ColumnName="Customer_City" />
+                <ScalarProperty Name="Customer_Area" ColumnName="Customer_Area" />
+                <ScalarProperty Name="Customer_Ship" ColumnName="Customer_Ship" />
+                <ScalarProperty Name="Customer_DP" ColumnName="Customer_DP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favourates">
+            <EntityTypeMapping TypeName="voguelinkModel.Favourate">
+              <MappingFragment StoreEntitySet="Favourates">
+                <ScalarProperty Name="Favourates_Id" ColumnName="Favourates_Id" />
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="voguelinkModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="Invoice_PaymentMethod" ColumnName="Invoice_PaymentMethod" />
+                <ScalarProperty Name="Invoice_PaymentStatus" ColumnName="Invoice_PaymentStatus" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="voguelinkModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Placed_Date" ColumnName="Placed_Date" />
+                <ScalarProperty Name="Delivery_Date" ColumnName="Delivery_Date" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Total_Price" ColumnName="Total_Price" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="voguelinkModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Product_Brand" ColumnName="Product_Brand" />
+                <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
+                <ScalarProperty Name="Product_Quantity" ColumnName="Product_Quantity" />
+                <ScalarProperty Name="Product_Type" ColumnName="Product_Type" />
+                <ScalarProperty Name="Product_Gender" ColumnName="Product_Gender" />
+                <ScalarProperty Name="Product_Material" ColumnName="Product_Material" />
+                <ScalarProperty Name="Product_Size" ColumnName="Product_Size" />
+                <ScalarProperty Name="Product_Color" ColumnName="Product_Color" />
+                <ScalarProperty Name="Product_Img1" ColumnName="Product_Img1" />
+                <ScalarProperty Name="Product_Img2" ColumnName="Product_Img2" />
+                <ScalarProperty Name="Product_Img3" ColumnName="Product_Img3" />
+                <ScalarProperty Name="Product_Img4" ColumnName="Product_Img4" />
+                <ScalarProperty Name="Seller_Id" ColumnName="Seller_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromoCodes">
+            <EntityTypeMapping TypeName="voguelinkModel.PromoCode">
+              <MappingFragment StoreEntitySet="PromoCode">
+                <ScalarProperty Name="Promo_Id" ColumnName="Promo_Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Min_Amount" ColumnName="Min_Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="voguelinkModel.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="Review_Id" ColumnName="Review_Id" />
+                <ScalarProperty Name="Review1" ColumnName="Review" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sellers">
+            <EntityTypeMapping TypeName="voguelinkModel.Seller">
+              <MappingFragment StoreEntitySet="Seller">
+                <ScalarProperty Name="Seller_Id" ColumnName="Seller_Id" />
+                <ScalarProperty Name="Seller_BrandName" ColumnName="Seller_BrandName" />
+                <ScalarProperty Name="Seller_OwnersName" ColumnName="Seller_OwnersName" />
+                <ScalarProperty Name="Seller_NationalIdNO" ColumnName="Seller_NationalIdNO" />
+                <ScalarProperty Name="Seller_Email" ColumnName="Seller_Email" />
+                <ScalarProperty Name="Seller_Phone" ColumnName="Seller_Phone" />
+                <ScalarProperty Name="Seller_Pass" ColumnName="Seller_Pass" />
+                <ScalarProperty Name="Seller_BankAccount" ColumnName="Seller_BankAccount" />
+                <ScalarProperty Name="Seller_TradeLicenseNo" ColumnName="Seller_TradeLicenseNo" />
+                <ScalarProperty Name="Seller_BusinessAddress" ColumnName="Seller_BusinessAddress" />
+                <ScalarProperty Name="Seller_District" ColumnName="Seller_District" />
+                <ScalarProperty Name="Seller_City" ColumnName="Seller_City" />
+                <ScalarProperty Name="Seller_Area" ColumnName="Seller_Area" />
+                <ScalarProperty Name="Seller_Status" ColumnName="Seller_Status" />
+                <ScalarProperty Name="Seller_DP" ColumnName="Seller_DP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="voguelinkModel.Notification">
+              <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="Not_Status" ColumnName="Not_Status" />
+                <ScalarProperty Name="Not_Text" ColumnName="Not_Text" />
+                <ScalarProperty Name="Not_Rec" ColumnName="Not_Rec" />
+                <ScalarProperty Name="Not_Sender" ColumnName="Not_Sender" />
+                <ScalarProperty Name="NotId" ColumnName="NotId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

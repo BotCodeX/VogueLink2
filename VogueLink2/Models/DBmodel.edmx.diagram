@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="52f344a60b49406aacc567f9b27811f8" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="voguelinkModel.Admin" Width="1.5" PointX="10.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="voguelinkModel.Cart" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="voguelinkModel.Complain" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="voguelinkModel.Customer" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="voguelinkModel.Favourate" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="voguelinkModel.Invoice" Width="1.5" PointX="7.5" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="voguelinkModel.Order" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="voguelinkModel.Product" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="voguelinkModel.PromoCode" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="voguelinkModel.Review" Width="1.5" PointX="8.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="voguelinkModel.Seller" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="voguelinkModel.FK__Cart__Customer_I__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="voguelinkModel.FK__Cart__Product_Id__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="voguelinkModel.FK__Cart__Promo_Id__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="voguelinkModel.FK__Complains__Order__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="voguelinkModel.FK__Favourate__Custo__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="voguelinkModel.FK__Orders__Customer__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="voguelinkModel.FK__Review__Customer__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="voguelinkModel.FK__Favourate__Produ__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="voguelinkModel.FK__Invoice__Order_I__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="voguelinkModel.FK__Orders__Product___48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="voguelinkModel.FK__Product__Seller___2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="voguelinkModel.FK__Review__Product___5CD6CB2B" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="voguelinkModel.Notification" Width="1.5" PointX="10.375" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

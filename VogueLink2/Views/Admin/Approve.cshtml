@@ -1,0 +1,61 @@
+﻿@model IEnumerable<VogueLink2.Models.Seller>
+
+@{
+    ViewBag.Title = "Approve";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Approve Sellers</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Seller_BrandName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seller_OwnersName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seller_DP)
+        </th>
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @if (item.Seller_Status == "Pending")
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.Seller_BrandName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seller_OwnersName)
+            </td>
+
+            if (item.Seller_DP == null)
+            {
+                <td>
+                    <img src="~/ProjectImg/notfound.jpg" alt="Image Not Found" width="80px" height="50px">
+                </td>
+            }
+            else
+            {
+                <td>
+                <img src="@Html.DisplayFor(modelItem => item.Seller_DP)" width="80px" height="50px" />
+                </td>
+            }
+
+            <td>
+
+                @Html.ActionLink("Details", "SelllerDetails", new { id = item.Seller_Id }) |
+                @Html.ActionLink("Approve", "Accept", new { id = item.Seller_Id }) |
+                @Html.ActionLink("Reject", "Reject", new { id = item.Seller_Id })
+            </td>
+        }
+
+
+
+    </tr>
+}
+
+</table>

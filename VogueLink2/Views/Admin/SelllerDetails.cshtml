@@ -1,0 +1,146 @@
+﻿@model VogueLink2.Models.Seller
+
+@{
+    /**/
+
+    ViewBag.Title = "SelllerDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SelllerDetails</h2>
+
+<div>
+    <h4>Seller Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_BrandName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_BrandName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_OwnersName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_OwnersName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_NationalIdNO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_NationalIdNO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_Pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_Pass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_BankAccount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_BankAccount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_TradeLicenseNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_TradeLicenseNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_BusinessAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_BusinessAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_District)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_District)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_Area)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_Area)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller_DP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller_DP)
+        </dd>
+
+    </dl>
+</div>
+@if (Model.Seller_Status == "Pending")
+{
+    <p>
+        <a href="@Url.Action("Accept", "Admin" , new { id =Model.Seller_Id })" class="btn btn-success">Approve</a>
+        <a href="@Url.Action("Reject", "Admin" , new { id = Model.Seller_Id })" class="btn btn-danger">Reject</a>
+
+    </p>
+}
+else
+{
+    <div>
+        <strong>Seller @Model.Seller_Status</strong>
+    </div>
+}
+<p>
+    <a href="@Url.Action("Approve", "Admin")" class="btn btn-primary">Back</a>
+</p>
