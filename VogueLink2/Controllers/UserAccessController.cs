@@ -69,6 +69,8 @@ namespace VogueLink2.Controllers
             {
                 Session["Customer_Email"] = cus.Customer_Email.ToString();
                 Session["Customer_Pass"] = cus.Customer_Pass.ToString();
+                Session["Customer_Id"] = checklogin.Customer_Id;
+                Session["Customer_FName"] = checklogin.Customer_FName;
                 return RedirectToAction("Dashboard");
             }
             else
@@ -76,6 +78,47 @@ namespace VogueLink2.Controllers
                 ViewBag.Notification = "Wrong Email or password";
             }
             return View();
+        }
+
+        public ActionResult Cart()
+        {
+            if (Session["Customer_Id"] != null)
+            {
+                int temp = (int)Session["Customer_Id"];
+                var data = db.Carts.Where(p => p.Customer_Id == temp).ToList();
+                return View(data);
+            }
+            return RedirectToAction("Login");
+        }
+        
+
+        public ActionResult Favourite()
+        {
+            if (Session["Customer_Id"] != null)
+            {
+                int temp = (int)Session["Customer_Id"];
+                
+                    var data = db.Favourates.Where(p => p.Customer_Id == temp).ToList();
+                    return View(data);
+                
+            }
+            return RedirectToAction("Login");
+        }
+
+        public ActionResult DeleteFav(int id)
+        {
+            var fav = db.Favourates.Find(id);
+            if(fav!=null)
+            {
+                db.Favourates.Remove(fav);
+                db.SaveChanges();
+                return RedirectToAction("Favourite");
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+            
         }
     }
 }

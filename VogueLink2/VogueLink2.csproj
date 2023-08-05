@@ -249,6 +249,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\57118246_10156094923300373_3908111306657366016_n.jpg" />
     <Content Include="Images\bg-masthead.jpg" />
+    <Content Include="Images\deletef.png" />
     <Content Include="Images\OIP.jpeg" />
     <Content Include="Images\R.jpeg" />
     <Content Include="Models\DBmodel.Context.tt">
@@ -307,6 +308,10 @@
     <Content Include="Views\SellerAccess\Register.cshtml" />
     <Content Include="Views\SellerAccess\ProductViewSeller.cshtml" />
     <Content Include="Views\Admin\SelllerDetails.cshtml" />
+    <Content Include="Views\Home\AllProduct.cshtml" />
+    <Content Include="Views\Home\ProductDetails.cshtml" />
+    <Content Include="Views\UserAccess\Favourite.cshtml" />
+    <Content Include="Views\UserAccess\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

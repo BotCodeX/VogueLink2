@@ -1,0 +1,54 @@
+﻿@model IEnumerable<VogueLink2.Models.Product>
+
+@{
+    ViewBag.Title = "AllProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetAllProducts</title>
+</head>
+
+<body>
+    <h1>All Product list</h1>
+    <button>Click me</button>
+</body>
+</html>
+
+<div class="container">
+    <h3 class="display-4">Products</h3>
+    <div class="row">
+
+        @foreach (var pro in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm" style="width: 400px; height: 500px;">
+                    @if (pro.Product_Img1 == null)
+                    {
+                        <img src="~/ProjectImg/R.png" width="100%" alt="Product Image" >
+                    }
+                    else
+                    {
+                        <img src="@Html.DisplayFor(modelItem => pro.Product_Img1)" width="100%" alt="Product Image" >
+                    }
+                        <div class="card-body">
+                            <h3 class="card-title">@pro.Product_Name</h3>
+                            <p class="card-text">@pro.Product_Type</p>
+                            <p class="card-text">@pro.Product_Price</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="/Home/ProductDetails/@pro.Product_Id" class="btn btn-sm btn-dark">View details</a>
+                                </div>
+                                <small class="text-muted">@pro.Product_Material</small>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿@model VogueLink2.Models.Product
+
+@{
+    ViewBag.Title = "ProductDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Product_Name</h2>
+<div class="container">
+    <div class="col-md-6">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                @if (Model.Product_Img1 != null)
+                {
+                    <div class="carousel-item active">
+                        <img src="@Model.Product_Img1" class="d-block w-100" alt="First slide">
+                    </div>
+                }
+                @if (Model.Product_Img2 != null)
+                {
+                    <div class="carousel-item active">
+                        <img src="@Model.Product_Img2" class="d-block w-100" alt="Second slide">
+                    </div>
+                }
+                @if (Model.Product_Img3 != null)
+                {
+                    <div class="carousel-item active">
+                        <img src="@Model.Product_Img3" class="d-block w-100" alt="Third slide">
+                    </div>
+                }
+                @if (Model.Product_Img4 != null)
+                {
+                    <div class="carousel-item active">
+                        <img src="@Model.Product_Img4" class="d-block w-100" alt="Forth slide">
+                    </div>
+                }
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+    </div> 
+</div>
