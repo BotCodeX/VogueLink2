@@ -12,18 +12,16 @@ namespace VogueLink2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cart
+    public partial class ProductOrder
     {
-        public int Cart_Id { get; set; }
-        public int Quantity { get; set; }
-        public decimal Price { get; set; }
-        public int Customer_Id { get; set; }
-        public int Promo_Id { get; set; }
+        public int PO_Id { get; set; }
+        public decimal Order_Price { get; set; }
+        public int Order_Quantity { get; set; }
+        public string Order_Size { get; set; }
         public int Product_Id { get; set; }
-        public string Product_Size { get; set; }
+        public int Order_Id { get; set; }
     
-        public virtual Customer Customer { get; set; }
+        public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
-        public virtual PromoCode PromoCode { get; set; }
     }
 }

@@ -37,5 +37,6 @@ namespace VogueLink2.Models
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Seller> Sellers { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<ProductOrder> ProductOrders { get; set; }
     }
 }

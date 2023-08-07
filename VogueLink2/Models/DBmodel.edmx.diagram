@@ -29,6 +29,9 @@
         <AssociationConnector Association="voguelinkModel.FK__Product__Seller___2F10007B" ManuallyRouted="false" />
         <AssociationConnector Association="voguelinkModel.FK__Review__Product___5CD6CB2B" ManuallyRouted="false" />
         <EntityTypeShape EntityType="voguelinkModel.Notification" Width="1.5" PointX="10.375" PointY="5.75" />
+        <EntityTypeShape EntityType="voguelinkModel.ProductOrder" Width="1.5" PointX="10.5" PointY="9" />
+        <AssociationConnector Association="voguelinkModel.FK__ProductOr__Order__03F0984C" />
+        <AssociationConnector Association="voguelinkModel.FK__ProductOr__Produ__02FC7413" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

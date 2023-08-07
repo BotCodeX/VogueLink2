@@ -78,6 +78,24 @@ namespace VogueLink2.Controllers
                 ViewBag.Notification = "Wrong Email or password";
             }
             return View();
+            /*
+            if (!string.IsNullOrEmpty(lemail) && !string.IsNullOrEmpty(lpassword))
+            {
+                var checklogin = db.Customers.Where(x => x.Customer_Email.Equals(lemail) && x.Customer_Pass.Equals(lpassword)).FirstOrDefault();
+                if (checklogin != null)
+                {
+                    Session["Customer_Email"] = checklogin.Customer_Email.ToString();
+                    Session["Customer_Pass"] = checklogin.Customer_Pass.ToString();
+                    Session["Customer_Id"] = checklogin.Customer_Id;
+                    Session["Customer_FName"] = checklogin.Customer_FName;
+                    return RedirectToAction("Dashboard");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            return View("Signup");*/
         }
 
         public ActionResult Cart()
@@ -90,6 +108,7 @@ namespace VogueLink2.Controllers
             }
             return RedirectToAction("Login");
         }
+
         
 
         public ActionResult Favourite()
@@ -119,6 +138,69 @@ namespace VogueLink2.Controllers
                 return HttpNotFound();
             }
             
+        }
+
+        public ActionResult ApplyVoucher(string voucherCode)
+        {
+            if (!string.IsNullOrEmpty(voucherCode))
+            {
+                var check = db.PromoCodes.Where(x => x.Code.Equals(voucherCode)).FirstOrDefault();
+                if (check!=null)
+                {
+                    double temp = (double)Session["Payment"];
+                    if(temp>=(double)check.Min_Amount)
+                    {
+                        temp = temp - (double)check.Discount;
+                        Session["Payment"] = temp;
+                        Session["Discount"] = check.Discount;
+                        ViewBag.Message = "Voucher applied successfully!";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Voucher not applicable";
+                    }
+                }
+                else
+                {
+                    ViewBag.Message = "Invalid Voucher";
+                }
+                
+            }
+            else
+            {
+                ViewBag.Message = "Please enter a voucher code.";
+            }
+            if (Session["Customer_Id"] != null)
+            {
+                int temp = (int)Session["Customer_Id"];
+                var data = db.Carts.Where(p => p.Customer_Id == temp).ToList();
+                return View("Order", data);
+            }
+            return View();
+        }
+        
+
+        public ActionResult Order()
+        {
+            if (Session["Customer_Id"] != null)
+            {
+                int temp = (int)Session["Customer_Id"];
+                var data = db.Carts.Where(p => p.Customer_Id == temp).ToList();
+                double totprice = 0.0;
+                foreach (var item in data)
+                {
+                    totprice = totprice + (double)item.Price;
+                }
+                
+                Session["Total_Price"] = totprice;
+                Session["Payment"] = totprice + 100;
+                return View(data);
+            }
+            return RedirectToAction("Login");
+        }
+        public ActionResult ConfirmOrder()
+        {
+            return View();
         }
     }
 }

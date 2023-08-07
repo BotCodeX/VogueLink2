@@ -47,6 +47,9 @@ namespace VogueLink2.Controllers
             {
                 Session["Seller_Email"] = temp.Seller_Email.ToString();
                 Session["Seller_Pass"] = temp.Seller_Pass.ToString();
+                Session["Seller_BrandName"] = checklogin.Seller_BrandName.ToString();
+                Session["Seller_Id"] = checklogin.Seller_Id;
+
                 return RedirectToAction("AddProduct");
             }
             else if(checklogin.Seller_Status == "Pending")
@@ -107,8 +110,12 @@ namespace VogueLink2.Controllers
                     return RedirectToAction("Index", new { id = 0 });
                 }
             }
-            
+        }
 
+        public ActionResult SellerDashboard()
+        {
+
+            return View();
         }
 
         [HttpGet]
@@ -169,10 +176,23 @@ namespace VogueLink2.Controllers
             return RedirectToAction("AddProduct");
         }
 
-       
+        public ActionResult UpdateProduct()
+        {
+
+            return View();
+        }
+
+
         public ActionResult ProductViewSeller()
         {
-            return View(db.Products.ToList());
+            if (Session["Seller_Id"] != null)
+            {
+                int temp = (int)Session["Seller_Id"];
+                var data = db.Products.Where(p => p.Seller_Id == temp).ToList();
+                return View(data);
+            }
+            return RedirectToAction("Login");
         }
+
     }
 }

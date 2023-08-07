@@ -226,6 +226,9 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>DBmodel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductOrder.cs">
+      <DependentUpon>DBmodel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PromoCode.cs">
       <DependentUpon>DBmodel.tt</DependentUpon>
     </Compile>
@@ -242,6 +245,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\styles.css" />
     <Content Include="Content\stylesHome.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -312,6 +316,8 @@
     <Content Include="Views\Home\ProductDetails.cshtml" />
     <Content Include="Views\UserAccess\Favourite.cshtml" />
     <Content Include="Views\UserAccess\Cart.cshtml" />
+    <Content Include="Views\UserAccess\Order.cshtml" />
+    <Content Include="Views\SellerAccess\UpdateProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

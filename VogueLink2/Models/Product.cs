@@ -9,10 +9,8 @@
 
 namespace VogueLink2.Models
 {
-    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Web;
 
@@ -25,6 +23,7 @@ namespace VogueLink2.Models
             this.Favourates = new HashSet<Favourate>();
             this.Orders = new HashSet<Order>();
             this.Reviews = new HashSet<Review>();
+            this.ProductOrders = new HashSet<ProductOrder>();
         }
     
         public int Product_Id { get; set; }
@@ -61,5 +60,7 @@ namespace VogueLink2.Models
         public virtual Seller Seller { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }

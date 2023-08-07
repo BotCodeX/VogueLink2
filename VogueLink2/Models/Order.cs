@@ -19,6 +19,7 @@ namespace VogueLink2.Models
         {
             this.Complains = new HashSet<Complain>();
             this.Invoices = new HashSet<Invoice>();
+            this.ProductOrders = new HashSet<ProductOrder>();
         }
     
         public int Order_Id { get; set; }
@@ -35,5 +36,7 @@ namespace VogueLink2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual Product Product { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }

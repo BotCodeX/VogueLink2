@@ -16,19 +16,27 @@
             @Html.DisplayNameFor(model => model.Quantity)
         </th>
         <th>
+            <p>Size</p>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
-        
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Product.Product_Name)
+            @Html.ActionLink(item.Product.Product_Name, "ProductDetails", "Home", new { id = item.Product.Product_Id })
         </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_Size)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Price)
@@ -38,6 +46,13 @@
             @Html.ActionLink("Delete", "Delete", new { id = item.Cart_Id })
         </td>
     </tr>
-}
+    }
 
 </table>
+
+
+<div style="text-align: center;">
+    <p>
+        <a href="@Url.Action("Order", "UserAccess")" class="btn btn-success">Place Order</a>
+    </p>
+</div>
