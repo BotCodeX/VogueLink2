@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,7 +28,7 @@ namespace VogueLink2.Controllers
         [HttpPost]
         public ActionResult Signup(Customer cus)
         {
-            if(db.Customers.Any(x=>x.Customer_Email == cus.Customer_Email))
+            if (db.Customers.Any(x => x.Customer_Email == cus.Customer_Email))
             {
                 ViewBag.Notification = "Account already existed";
                 return View();
@@ -44,7 +46,7 @@ namespace VogueLink2.Controllers
             }
 
 
-           
+
         }
 
         public ActionResult Logout()
@@ -65,7 +67,7 @@ namespace VogueLink2.Controllers
         public ActionResult Login(Customer cus)
         {
             var checklogin = db.Customers.Where(x => x.Customer_Email.Equals(cus.Customer_Email) && x.Customer_Pass.Equals(cus.Customer_Pass)).FirstOrDefault();
-            if(checklogin!=null)
+            if (checklogin != null)
             {
                 Session["Customer_Email"] = cus.Customer_Email.ToString();
                 Session["Customer_Pass"] = cus.Customer_Pass.ToString();
@@ -98,6 +100,69 @@ namespace VogueLink2.Controllers
             return View("Signup");*/
         }
 
+        [HttpGet]
+        public ActionResult EditProfile()
+        {
+            if (Session["Customer_Id"] != null)
+            {
+                int temp = (int)Session["Customer_Id"];
+                var pro = db.Customers.SingleOrDefault(p => p.Customer_Id == temp);
+                if (pro == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(pro);
+            }
+            return RedirectToAction("Login");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(Customer pro)
+        {
+            if (Session["Customer_Id"] != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    var existing = db.Customers.Find(pro.Customer_Id);
+
+                    if (existing == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    existing.Customer_FName = pro.Customer_FName;
+                    existing.Customer_LName = pro.Customer_LName;
+                    existing.Customer_Email = pro.Customer_Email;
+                    existing.Customer_Pass = pro.Customer_Pass;
+                    existing.Customer_Phone = pro.Customer_Phone;
+                    existing.Customer_Gender = pro.Customer_Gender;
+                    existing.Customer_District = pro.Customer_District;
+                    existing.Customer_City = pro.Customer_City;
+                    existing.Customer_Area = pro.Customer_Area;
+                    existing.Customer_Ship = pro.Customer_Ship;
+
+                    if (pro.ImageFile != null)
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(pro.ImageFile.FileName);
+                        string extension = Path.GetExtension(pro.ImageFile.FileName);
+                        filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                        pro.Customer_DP = "../ProjectImg/" + filename;
+                        filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
+                        pro.ImageFile.SaveAs(filename);
+                    }
+
+                    db.SaveChanges();
+                    return RedirectToAction("EditProfile");
+                }
+
+                return View("EditProfile");
+            }
+            return RedirectToAction("Login");
+        }
+
+       
+
         public ActionResult Cart()
         {
             if (Session["Customer_Id"] != null)
@@ -109,17 +174,71 @@ namespace VogueLink2.Controllers
             return RedirectToAction("Login");
         }
 
-        
+        public ActionResult CartDelete(int id)
+        {
+            var item = db.Carts.Find(id);
+            if (item != null)
+            {
+                db.Carts.Remove(item);
+                db.SaveChanges();
+                return RedirectToAction("Cart");
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
 
-        public ActionResult Favourite()
+        public ActionResult AddFav(int id)
+        {
+            if (Session["Customer_Id"] != null)
+            {
+                var newfav = new Favourate
+                {
+                    Customer_Id = (int)Session["Customer_Id"],
+                    Product_Id = id
+                };
+                return RedirectToAction("ProductDetails", "Home", new { id = id });
+
+            }
+            return RedirectToAction("Login");
+        }
+
+
+        public ActionResult AddCart(string size , string amount ,int id)
+        {
+            if (Session["Customer_Id"] != null)
+            {
+                if (!string.IsNullOrEmpty(size) && !string.IsNullOrEmpty(amount))
+                {
+                    var data = db.Products.Where(p => p.Product_Id == id).FirstOrDefault();
+                    var newcart = new Cart
+                    {
+                        Quantity = int.Parse(amount),
+                        Price = int.Parse(amount) * data.Product_Price,
+                        Customer_Id = (int)Session["Customer_Id"],
+                        Promo_Id = 4001,
+                        Product_Id = id,
+                        Product_Size = size
+                    };
+                    db.Carts.Add(newcart);
+                    db.SaveChanges();
+                    return RedirectToAction("Cart");
+                }
+                return RedirectToAction("ProductDetails", "Home", new { id = id });
+            }
+            return RedirectToAction("Login");
+        }
+
+                public ActionResult Favourite()
         {
             if (Session["Customer_Id"] != null)
             {
                 int temp = (int)Session["Customer_Id"];
-                
-                    var data = db.Favourates.Where(p => p.Customer_Id == temp).ToList();
-                    return View(data);
-                
+
+                var data = db.Favourates.Where(p => p.Customer_Id == temp).ToList();
+                return View(data);
+
             }
             return RedirectToAction("Login");
         }
@@ -127,7 +246,7 @@ namespace VogueLink2.Controllers
         public ActionResult DeleteFav(int id)
         {
             var fav = db.Favourates.Find(id);
-            if(fav!=null)
+            if (fav != null)
             {
                 db.Favourates.Remove(fav);
                 db.SaveChanges();
@@ -137,7 +256,7 @@ namespace VogueLink2.Controllers
             {
                 return HttpNotFound();
             }
-            
+
         }
 
         public ActionResult ApplyVoucher(string voucherCode)
@@ -145,10 +264,10 @@ namespace VogueLink2.Controllers
             if (!string.IsNullOrEmpty(voucherCode))
             {
                 var check = db.PromoCodes.Where(x => x.Code.Equals(voucherCode)).FirstOrDefault();
-                if (check!=null)
+                if (check != null)
                 {
                     double temp = (double)Session["Payment"];
-                    if(temp>=(double)check.Min_Amount)
+                    if (temp >= (double)check.Min_Amount)
                     {
                         temp = temp - (double)check.Discount;
                         Session["Payment"] = temp;
@@ -164,7 +283,7 @@ namespace VogueLink2.Controllers
                 {
                     ViewBag.Message = "Invalid Voucher";
                 }
-                
+
             }
             else
             {
@@ -178,7 +297,15 @@ namespace VogueLink2.Controllers
             }
             return View();
         }
-        
+
+        public ActionResult Invoice()
+        {
+            if (Session["Customer_Id"] != null && Session["neworder"] !=null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
 
         public ActionResult Order()
         {
@@ -191,16 +318,79 @@ namespace VogueLink2.Controllers
                 {
                     totprice = totprice + (double)item.Price;
                 }
-                
+
                 Session["Total_Price"] = totprice;
                 Session["Payment"] = totprice + 100;
+                Session["Quantity"] = db.Carts.Where(p => p.Customer_Id == temp).Sum(p => p.Quantity);
                 return View(data);
             }
             return RedirectToAction("Login");
         }
+
+
         public ActionResult ConfirmOrder()
         {
-            return View();
+
+            if (Session["Customer_Id"] != null)
+            {
+                var newOrder = new Order
+                {
+                    Placed_Date = DateTime.Now,
+                    Delivery_Date = DateTime.Now.AddDays(5),
+                    Quantity = Convert.ToInt32(Session["Quantity"] ?? 0), 
+                    Total_Price = Convert.ToInt32(Session["Payment"] ?? 0), 
+                    Product_Id = 5019,
+                    Customer_Id = Convert.ToInt32(Session["Customer_Id"])
+                };
+
+                db.Orders.Add(newOrder);
+                db.SaveChanges();
+
+                int newOrderId = newOrder.Order_Id;
+                Session["neworder"] = newOrderId;
+
+
+                int customerId = (int)Session["Customer_Id"];
+
+                var cartItems = db.Carts.Where(c => c.Customer_Id == customerId).ToList();
+
+               
+                foreach (var cartItem in cartItems)
+                {
+                    
+                    var product = db.Products.Find(cartItem.Product_Id);
+
+                    if (product != null)
+                    {
+                        product.Product_Quantity -= cartItem.Quantity;
+                        db.Entry(product).State = EntityState.Modified;
+                    }
+                }
+                    
+
+                foreach (var cartItem in cartItems)
+                {
+                    var newPO = new ProductOrder
+                    {
+                        Order_Price = cartItem.Price,
+                        Order_Quantity = cartItem.Quantity,
+                        Order_Size = cartItem.Product_Size,
+                        Product_Id = cartItem.Product_Id,
+                        Order_Id = newOrderId
+                    };
+  
+                    db.ProductOrders.Add(newPO);
+                }
+
+                db.SaveChanges();
+
+                
+                db.Carts.RemoveRange(cartItems);
+                db.SaveChanges();
+
+                return RedirectToAction("Invoice");
+            }
+            return RedirectToAction("Login");
         }
     }
 }

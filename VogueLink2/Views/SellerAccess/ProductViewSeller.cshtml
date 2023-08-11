@@ -51,14 +51,13 @@
             </td>
 
             <td>
-
                 <img src="@Html.DisplayFor(modelItem => item.Product_Img1)" width="80px" height="50px" />
             </td>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Product_Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Product_Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Product_Id })
+                @Html.ActionLink("Edit", "UpdateProduct", new { id = item.Product_Id }) |
+                
+                @Html.ActionLink("Delete", "ProductDelete", new { id = item.Product_Id })
             </td>
         </tr>
     }

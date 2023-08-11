@@ -5,53 +5,142 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Product_Name</h2>
-<div class="container">
-    <div class="col-md-6">
-        <div id="carouselExampleIndicators" class="carousel slide">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                @if (Model.Product_Img1 != null)
-                {
-                    <div class="carousel-item active">
-                        <img src="@Model.Product_Img1" class="d-block w-100" alt="First slide">
-                    </div>
-                }
-                @if (Model.Product_Img2 != null)
-                {
-                    <div class="carousel-item active">
-                        <img src="@Model.Product_Img2" class="d-block w-100" alt="Second slide">
-                    </div>
-                }
-                @if (Model.Product_Img3 != null)
-                {
-                    <div class="carousel-item active">
-                        <img src="@Model.Product_Img3" class="d-block w-100" alt="Third slide">
-                    </div>
-                }
-                @if (Model.Product_Img4 != null)
-                {
-                    <div class="carousel-item active">
-                        <img src="@Model.Product_Img4" class="d-block w-100" alt="Forth slide">
-                    </div>
-                }
+<h2>ProductDetails</h2>
 
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-    <div class="col-md-6">
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Name)
+        </dt>
 
-    </div> 
+        <dd>
+            @Html.DisplayFor(model => model.Product_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Brand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Brand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Price)
+        </dd>
+
+   
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Material)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Material)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Size)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Size)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Color)
+        </dd>
+
+        @if (Model.Product_Img1 != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Product_Img1)
+            </dt>
+
+            <dd>
+                <img src="@Html.DisplayFor(modelItem => Model.Product_Img1)" width="100" height="100" alt="Product Image">
+            </dd>
+        }
+
+        @if (Model.Product_Img2 != null)
+
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Product_Img2)
+            </dt>
+
+            <dd>
+                <img src="@Html.DisplayFor(modelItem => Model.Product_Img2)" width="100%" alt="Product Image">
+            </dd>
+        }
+
+        @if (Model.Product_Img3 != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Product_Img3)
+            </dt>
+
+            <dd>
+                <img src="@Html.DisplayFor(modelItem => Model.Product_Img3)" width="100%" alt="Product Image">
+            </dd>
+        }
+
+        @if (Model.Product_Img4 != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Product_Img4)
+            </dt>
+
+            <dd>
+                <img src="@Html.DisplayFor(modelItem => Model.Product_Img4)" width="100%" alt="Product Image">
+            </dd>
+        }
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller.Seller_BrandName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller.Seller_BrandName)
+        </dd>
+
+    </dl>
 </div>
+<form method="post" action="@Url.Action("AddCart", "UserAccess" , new { id =Model.Product_Id })">
+    <div style="margin-bottom: 20px; display: flex; align-items: center;">
+        <input type="text" name="size" style="padding: 6px; border: 1px solid #ccc; border-radius: 4px; color: #000;" width="100" placeholder="Enter Size">
+        <input type="text" name="amount" style="padding: 6px; border: 1px solid #ccc; border-radius: 4px; color: #000;" width="100" placeholder="Enter Amount">
+        <button type="submit" style="padding: 6px 12px; background-color: #000000; border: none; border-radius: 4px; color: white;">Add to Cart</button>
+    </div>
+</form>
+<p>
+    
+    <a href="@Url.Action("AddFav", "UserAccess" , new { id = Model.Product_Id })" class="btn btn-danger">Add to Favourite</a>
+</p>

@@ -40,11 +40,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
-
-            <td>
-
-                @Html.ActionLink("Delete", "Delete", new { id = item.Cart_Id })
-            </td>
         </tr>
     }
 </table>
@@ -106,6 +101,6 @@
 
 <div style="text-align: center;">
     <p>
-        <a href="@Url.Action("Order", "UserAccess")" class="btn btn-success">Confirm Order</a>
+        <a href="@Url.Action("ConfirmOrder", "UserAccess")" class="btn btn-success">Confirm Order</a>
     </p>
 </div>

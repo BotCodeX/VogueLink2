@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.IO;
-using System.Web;
+using System.Linq;
 using System.Web.Mvc;
 using VogueLink2.Models;
-using System.Data.Entity.Validation;
 
 
 namespace VogueLink2.Controllers
@@ -52,7 +49,7 @@ namespace VogueLink2.Controllers
 
                 return RedirectToAction("AddProduct");
             }
-            else if(checklogin.Seller_Status == "Pending")
+            else if(checklogin != null && checklogin.Seller_Status == "Pending")
             {
                 return RedirectToAction("Index", new { id = 1 });
             }
@@ -127,66 +124,167 @@ namespace VogueLink2.Controllers
         [HttpPost]
         public ActionResult AddProduct(Product pro)
         {
-            if(ModelState.IsValid)
+            if(Session["Seller_Id"]!=null)
             {
-                if(pro.ImageFile1!=null)
+                if (ModelState.IsValid)
                 {
-                    string filename = Path.GetFileNameWithoutExtension(pro.ImageFile1.FileName);
-                    string extension = Path.GetExtension(pro.ImageFile1.FileName);
-                    filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
-                    pro.Product_Img1 = "../ProjectImg/" + filename;
-                    filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
-                    pro.ImageFile1.SaveAs(filename);
+                    if (pro.ImageFile1 != null)
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(pro.ImageFile1.FileName);
+                        string extension = Path.GetExtension(pro.ImageFile1.FileName);
+                        filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                        pro.Product_Img1 = "../ProjectImg/" + filename;
+                        filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
+                        pro.ImageFile1.SaveAs(filename);
+                    }
+
+                    if (pro.ImageFile2 != null)
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(pro.ImageFile2.FileName);
+                        string extension = Path.GetExtension(pro.ImageFile2.FileName);
+                        filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                        pro.Product_Img2 = "../ProjectImg/" + filename;
+                        filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
+                        pro.ImageFile2.SaveAs(filename);
+                    }
+                    if (pro.ImageFile3 != null)
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(pro.ImageFile3.FileName);
+                        string extension = Path.GetExtension(pro.ImageFile3.FileName);
+                        filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                        pro.Product_Img3 = "../ProjectImg/" + filename;
+                        filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
+                        pro.ImageFile3.SaveAs(filename);
+                    }
+                    if (pro.ImageFile4 != null)
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(pro.ImageFile4.FileName);
+                        string extension = Path.GetExtension(pro.ImageFile4.FileName);
+                        filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                        pro.Product_Img4 = "../ProjectImg/" + filename;
+                        filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
+                        pro.ImageFile4.SaveAs(filename);
+                    }
+                    pro.Seller_Id = (int)Session["Seller_Id"];
+                    db.Products.Add(pro);
+                    db.SaveChanges();
+                    TempData["AlertMessage"] = "Product Added Successfully!";
+                    ModelState.Clear();
+                    return RedirectToAction("ProductViewSeller");
                 }
-                
-                if (pro.ImageFile2 != null)
+                return RedirectToAction("AddProduct");
+            }
+            return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public ActionResult UpdateProduct(int id)
+        {
+            if (Session["Seller_Id"] != null)
+            {
+                var product = db.Products.SingleOrDefault(p => p.Product_Id == id);
+                if (product == null)
                 {
-                    string filename = Path.GetFileNameWithoutExtension(pro.ImageFile2.FileName);
-                    string extension = Path.GetExtension(pro.ImageFile2.FileName);
-                    filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
-                    pro.Product_Img2 = "../ProjectImg/" + filename;
-                    filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
-                    pro.ImageFile2.SaveAs(filename);
+                    return HttpNotFound();
                 }
-                if (pro.ImageFile3 != null)
+                return View(product);
+            }
+            return RedirectToAction("Login");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateProduct(Product pro)
+        {
+            if (Session["Seller_Id"] != null)
+            {
+                if (ModelState.IsValid)
                 {
-                    string filename = Path.GetFileNameWithoutExtension(pro.ImageFile3.FileName);
-                    string extension = Path.GetExtension(pro.ImageFile3.FileName);
-                    filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
-                    pro.Product_Img3 = "../ProjectImg/" + filename;
-                    filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
-                    pro.ImageFile3.SaveAs(filename);
-                }
-                if (pro.ImageFile4 != null)
-                {
-                    string filename = Path.GetFileNameWithoutExtension(pro.ImageFile4.FileName);
-                    string extension = Path.GetExtension(pro.ImageFile4.FileName);
-                    filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
-                    pro.Product_Img4 = "../ProjectImg/" + filename;
-                    filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
-                    pro.ImageFile4.SaveAs(filename);
+                    var existingProduct = db.Products.Find(pro.Product_Id);
+
+                    if (existingProduct == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                   
+                    existingProduct.Product_Name = pro.Product_Name;
+                    existingProduct.Product_Brand = pro.Product_Brand;
+                    existingProduct.Product_Price = pro.Product_Price;
+                    existingProduct.Product_Quantity = pro.Product_Quantity;
+                    existingProduct.Product_Type = pro.Product_Type;
+                    existingProduct.Product_Gender = pro.Product_Gender;
+                    existingProduct.Product_Material = pro.Product_Material;
+                    existingProduct.Product_Size = pro.Product_Size;
+                    existingProduct.Product_Color = pro.Product_Color;
+
+                    if (pro.ImageFile1 != null)
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(pro.ImageFile1.FileName);
+                        string extension = Path.GetExtension(pro.ImageFile1.FileName);
+                        filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                        pro.Product_Img1 = "../ProjectImg/" + filename;
+                        filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
+                        pro.ImageFile1.SaveAs(filename);
+                    }
+
+                    if (pro.ImageFile2 != null)
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(pro.ImageFile2.FileName);
+                        string extension = Path.GetExtension(pro.ImageFile2.FileName);
+                        filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                        pro.Product_Img2 = "../ProjectImg/" + filename;
+                        filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
+                        pro.ImageFile2.SaveAs(filename);
+                    }
+                    if (pro.ImageFile3 != null)
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(pro.ImageFile3.FileName);
+                        string extension = Path.GetExtension(pro.ImageFile3.FileName);
+                        filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                        pro.Product_Img3 = "../ProjectImg/" + filename;
+                        filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
+                        pro.ImageFile3.SaveAs(filename);
+                    }
+                    if (pro.ImageFile4 != null)
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(pro.ImageFile4.FileName);
+                        string extension = Path.GetExtension(pro.ImageFile4.FileName);
+                        filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                        pro.Product_Img4 = "../ProjectImg/" + filename;
+                        filename = Path.Combine(Server.MapPath("../ProjectImg/"), filename);
+                        pro.ImageFile4.SaveAs(filename);
+                    }
+
+                    db.SaveChanges();
+                    return RedirectToAction("ProductViewSeller");
                 }
 
-                db.Products.Add(pro);
+                return View("UpdateProduct", new { id = pro.Product_Id });
+            }
+            return RedirectToAction("Login");
+        }
+
+        public ActionResult ProductDelete(int id)
+        {
+            var pro = db.Products.Find(id);
+            if (pro != null)
+            {
+                db.Products.Remove(pro);
                 db.SaveChanges();
-                TempData["AlertMessage"] = "Product Added Successfully!";
-                ModelState.Clear();
                 return RedirectToAction("ProductViewSeller");
             }
-            return RedirectToAction("AddProduct");
+            else
+            {
+                return HttpNotFound();
+            }
         }
-
-        public ActionResult UpdateProduct()
-        {
-
-            return View();
-        }
-
 
         public ActionResult ProductViewSeller()
         {
             if (Session["Seller_Id"] != null)
             {
+
                 int temp = (int)Session["Seller_Id"];
                 var data = db.Products.Where(p => p.Seller_Id == temp).ToList();
                 return View(data);
@@ -194,5 +292,34 @@ namespace VogueLink2.Controllers
             return RedirectToAction("Login");
         }
 
+        public ActionResult OrderListDeli()
+        {
+            if (Session["Seller_Id"] != null)
+            {
+                DateTime current = DateTime.Now;
+                var deliveredOrders = db.Orders.Where(o => o.Product.Seller_Id == (int)Session["Seller_Id"] && o.Delivery_Date < current).ToList();
+                var deliveredProducts = deliveredOrders.Select(o => o.Order_Id).ToList();
+                //var ans = deliveredProducts.ToLookup(ProductOrder.Equals(deliveredOrders));
+
+
+
+                return View(deliveredProducts);
+            }
+            return RedirectToAction("Login");
+        }
+
+        public ActionResult OrderListtodo()
+        {
+            if (Session["Seller_Id"] != null)
+            {
+                DateTime current = DateTime.Now;
+                var deliveredOrders = db.Orders.Where(o => o.Product.Seller_Id == (int)Session["Seller_Id"] && o.Delivery_Date == current).ToList();
+
+                var deliveredProducts = deliveredOrders.Select(o => o.Product).Distinct().ToList();
+
+                return View(deliveredProducts);
+            }
+            return RedirectToAction("Login");
+        }
     }
 }

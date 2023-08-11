@@ -38,7 +38,7 @@ namespace VogueLink2.Controllers
             {
                 Session["Admin_Email"] = cus.Admin_Email.ToString();
                 Session["Admin_Pass"] = cus.Admin_Pass.ToString();
-                return RedirectToAction("Dashboard");
+                return RedirectToAction("Approve","Admin");
             }
             else
             {

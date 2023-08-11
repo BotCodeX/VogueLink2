@@ -313,11 +313,16 @@
     <Content Include="Views\SellerAccess\ProductViewSeller.cshtml" />
     <Content Include="Views\Admin\SelllerDetails.cshtml" />
     <Content Include="Views\Home\AllProduct.cshtml" />
-    <Content Include="Views\Home\ProductDetails.cshtml" />
     <Content Include="Views\UserAccess\Favourite.cshtml" />
     <Content Include="Views\UserAccess\Cart.cshtml" />
     <Content Include="Views\UserAccess\Order.cshtml" />
     <Content Include="Views\SellerAccess\UpdateProduct.cshtml" />
+    <Content Include="Views\UserAccess\EditProfile.cshtml" />
+    <Content Include="Views\UserAccess\Invoice.cshtml" />
+    <Content Include="Views\Home\ProductDetails.cshtml" />
+    <Content Include="Views\SellerAccess\OrderListDeli.cshtml" />
+    <Content Include="Views\SellerAccess\OrderListtodo.cshtml" />
+    <Content Include="Views\AdminAccess\AdminLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

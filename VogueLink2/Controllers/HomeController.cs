@@ -36,9 +36,18 @@ namespace VogueLink2.Controllers
             return View();
         }
 
+        public ActionResult ProductDetails(int id)
+        {
+            var details = db.Products.Where(x => x.Product_Id.Equals(id)).FirstOrDefault();
+            if(details!=null)
+            {
+                return View(details);
+            }
+            return HttpNotFound();
+        }
+
         public ActionResult AllProduct()
         {
-
             return View(db.Products.ToList());
         }
 
@@ -109,14 +118,6 @@ namespace VogueLink2.Controllers
         }
 
 
-        public ActionResult ProductDetails(int id)
-        {
-            var data = db.Products.FirstOrDefault(s => s.Product_Id == id);
-            if(data == null)
-            {
-                return HttpNotFound();
-            }
-            return View(data);
-        }
+        
     }
 }

@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="voguelinkModel.Invoice" Width="1.5" PointX="7.5" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="voguelinkModel.Order" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="voguelinkModel.Product" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="voguelinkModel.PromoCode" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="voguelinkModel.PromoCode" Width="1.5" PointX="3.125" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="voguelinkModel.Review" Width="1.5" PointX="8.25" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="voguelinkModel.Seller" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <AssociationConnector Association="voguelinkModel.FK__Cart__Customer_I__571DF1D5" ManuallyRouted="false" />

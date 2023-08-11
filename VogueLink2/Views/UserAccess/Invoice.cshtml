@@ -1,0 +1,34 @@
+﻿@model VogueLink2.Models.Invoice
+
+@{
+    ViewBag.Title = "invoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <h2 style="text-align: center;">Invoice</h2>
+
+    <div style="margin-top: 40px;">
+        <form action="@Url.Action("GenPDF","UserAccess")" method="get" style="display: flex; align-items: center; margin-bottom: 40px;">
+            <select name="pay" style="padding: 10px; border: none; border-radius: 20px; background-color: #18794b; color: white; width: 220px;">
+                <option value="all">Select Payment Method</option>
+                <option value="bkash">Bkash</option>
+                <option value="nagad">Nagad</option>
+                <option value="bank">Bank</option>
+                <option value="cod">COD</option>
+            </select>
+            <button type="submit" style="padding: 10px 20px; background-color: #000000; border: none; border-radius: 20px; color: white; width: 150px;">Generate PDF</button>
+        </form>
+
+        <a href="@Url.Action("Dashboard", "UserAccess")" class="btn btn-success">Next</a>
+    </div>
+
+
+</body>
+</html>
+
+

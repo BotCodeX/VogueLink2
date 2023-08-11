@@ -27,32 +27,32 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.ActionLink(item.Product.Product_Name, "ProductDetails", "Home", new { id = item.Product.Product_Id })
-        </td>
+        <tr>
+            <td>
+                @Html.ActionLink(item.Product.Product_Name, "ProductDetails", "Home", new { id = item.Product.Product_Id })
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product_Size)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Cart_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Cart_Id })
-        </td>
-    </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a href="@Url.Action("CartDelete", "UserAccess", new { id = item.Cart_Id })">
+                    <img src="~/Images/deletef.png" width="30px" height="25px" />
+                </a>
+            </td>
+        </tr>
     }
 
 </table>
 
-
-<div style="text-align: center;">
-    <p>
-        <a href="@Url.Action("Order", "UserAccess")" class="btn btn-success">Place Order</a>
-    </p>
+<div style="margin-top: 100px; margin-bottom: 100px;">
+    <a href="@Url.Action("AllProduct", "Home")" class="btn btn-success" style="float: left;">Continue Shopping</a>
+    <a href="@Url.Action("Order", "UserAccess")" class="btn btn-success" style="float: right;">Place Order</a>
+    <div style="clear: both;"></div>
 </div>
