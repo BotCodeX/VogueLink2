@@ -38,6 +38,7 @@ namespace VogueLink2.Controllers
             {
                 Session["Admin_Email"] = cus.Admin_Email.ToString();
                 Session["Admin_Pass"] = cus.Admin_Pass.ToString();
+                Session["Admin_Name"] = checklogin.Admin_FName;
                 return RedirectToAction("Approve","Admin");
             }
             else
@@ -47,6 +48,11 @@ namespace VogueLink2.Controllers
             return View();
         }
 
-        
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("AllProduct", "Home");
+        }
+
     }
 }

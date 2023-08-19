@@ -20,8 +20,10 @@ namespace VogueLink2.Models
         public string Order_Size { get; set; }
         public int Product_Id { get; set; }
         public int Order_Id { get; set; }
+        public int Seller_Id { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Seller Seller { get; set; }
     }
 }

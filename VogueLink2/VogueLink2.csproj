@@ -80,6 +80,9 @@
     <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
@@ -178,6 +181,7 @@
     <Compile Include="Controllers\AdminAccessController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PDFGenerateController.cs" />
     <Compile Include="Controllers\SellerAccessController.cs" />
     <Compile Include="Controllers\UserAccessController.cs" />
     <Compile Include="Global.asax.cs">
@@ -226,6 +230,7 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>DBmodel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductCompare.cs" />
     <Compile Include="Models\ProductOrder.cs">
       <DependentUpon>DBmodel.tt</DependentUpon>
     </Compile>
@@ -241,8 +246,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-litera.css" />
+    <Content Include="Content\bootstrap-lux.css" />
+    <Content Include="Content\bootstrap-solar.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-vapor.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\styles.css" />
@@ -266,6 +275,7 @@
       <DependentUpon>DBmodel.edmx</DependentUpon>
       <LastGenOutput>DBmodel.cs</LastGenOutput>
     </Content>
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\DBmodel.edmx">
@@ -275,6 +285,7 @@
     <Content Include="Models\DBmodel.edmx.diagram">
       <DependentUpon>DBmodel.edmx</DependentUpon>
     </Content>
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -320,13 +331,18 @@
     <Content Include="Views\UserAccess\EditProfile.cshtml" />
     <Content Include="Views\UserAccess\Invoice.cshtml" />
     <Content Include="Views\Home\ProductDetails.cshtml" />
-    <Content Include="Views\SellerAccess\OrderListDeli.cshtml" />
-    <Content Include="Views\SellerAccess\OrderListtodo.cshtml" />
     <Content Include="Views\AdminAccess\AdminLogin.cshtml" />
+    <Content Include="Views\SellerAccess\OrderListDeli.cshtml" />
+    <Content Include="Views\UserAccess\OrderList.cshtml" />
+    <Content Include="Views\UserAccess\ConOrder.cshtml" />
+    <Content Include="Views\Admin\OrderControl.cshtml" />
+    <Content Include="Views\Admin\InvoiceControl.cshtml" />
+    <Content Include="Views\SellerAccess\OrderListtodo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ProjectImg\" />
+    <Folder Include="Views\PDFGenerate\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

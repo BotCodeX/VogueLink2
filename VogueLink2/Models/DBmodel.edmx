@@ -126,6 +126,7 @@
           <Property Name="Order_Size" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Product_Id" Type="int" Nullable="false" />
           <Property Name="Order_Id" Type="int" Nullable="false" />
+          <Property Name="Seller_Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PromoCode">
           <Key>
@@ -310,6 +311,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ProductOr__Selle__14270015">
+          <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
+          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="Seller_Id" />
+            </Principal>
+            <Dependent Role="ProductOrder">
+              <PropertyRef Name="Seller_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Review__Customer__5BE2A6F2">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Review" Type="Self.Review" Multiplicity="*" />
@@ -394,6 +407,10 @@
           </AssociationSet>
           <AssociationSet Name="FK__ProductOr__Produ__02FC7413" Association="Self.FK__ProductOr__Produ__02FC7413">
             <End Role="Product" EntitySet="Product" />
+            <End Role="ProductOrder" EntitySet="ProductOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductOr__Selle__14270015" Association="Self.FK__ProductOr__Selle__14270015">
+            <End Role="Seller" EntitySet="Seller" />
             <End Role="ProductOrder" EntitySet="ProductOrder" />
           </AssociationSet>
           <AssociationSet Name="FK__Review__Customer__5BE2A6F2" Association="Self.FK__Review__Customer__5BE2A6F2">
@@ -574,6 +591,7 @@
           <Property Name="Seller_Status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Seller_DP" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK__Product__Seller___2F10007B" FromRole="Seller" ToRole="Product" />
+          <NavigationProperty Name="ProductOrders" Relationship="voguelinkModel.FK__ProductOr__Selle__14270015" FromRole="Seller" ToRole="ProductOrder" />
         </EntityType>
         <Association Name="FK__Cart__Customer_I__571DF1D5">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
@@ -789,6 +807,10 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductOrder" EntitySet="ProductOrders" />
           </AssociationSet>
+          <AssociationSet Name="FK__ProductOr__Selle__14270015" Association="voguelinkModel.FK__ProductOr__Selle__14270015">
+            <End Role="Seller" EntitySet="Sellers" />
+            <End Role="ProductOrder" EntitySet="ProductOrders" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Notification">
           <Key>
@@ -812,6 +834,8 @@
           <Property Name="Order_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Order" Relationship="voguelinkModel.FK__ProductOr__Order__03F0984C" FromRole="ProductOrder" ToRole="Order" />
           <NavigationProperty Name="Product" Relationship="voguelinkModel.FK__ProductOr__Produ__02FC7413" FromRole="ProductOrder" ToRole="Product" />
+          <Property Name="Seller_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Seller" Relationship="voguelinkModel.FK__ProductOr__Selle__14270015" FromRole="ProductOrder" ToRole="Seller" />
         </EntityType>
         <Association Name="FK__ProductOr__Order__03F0984C">
           <End Type="voguelinkModel.Order" Role="Order" Multiplicity="1" />
@@ -834,6 +858,18 @@
             </Principal>
             <Dependent Role="ProductOrder">
               <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductOr__Selle__14270015">
+          <End Type="voguelinkModel.Seller" Role="Seller" Multiplicity="1" />
+          <End Type="voguelinkModel.ProductOrder" Role="ProductOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="Seller_Id" />
+            </Principal>
+            <Dependent Role="ProductOrder">
+              <PropertyRef Name="Seller_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1008,6 +1044,7 @@
           <EntitySetMapping Name="ProductOrders">
             <EntityTypeMapping TypeName="voguelinkModel.ProductOrder">
               <MappingFragment StoreEntitySet="ProductOrder">
+                <ScalarProperty Name="Seller_Id" ColumnName="Seller_Id" />
                 <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
                 <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
                 <ScalarProperty Name="Order_Size" ColumnName="Order_Size" />

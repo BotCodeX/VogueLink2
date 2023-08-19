@@ -47,7 +47,7 @@ namespace VogueLink2.Controllers
                 Session["Seller_BrandName"] = checklogin.Seller_BrandName.ToString();
                 Session["Seller_Id"] = checklogin.Seller_Id;
 
-                return RedirectToAction("AddProduct");
+                return RedirectToAction("ProductViewSeller");
             }
             else if(checklogin != null && checklogin.Seller_Status == "Pending")
             {
@@ -292,18 +292,31 @@ namespace VogueLink2.Controllers
             return RedirectToAction("Login");
         }
 
+
         public ActionResult OrderListDeli()
         {
             if (Session["Seller_Id"] != null)
             {
                 DateTime current = DateTime.Now;
-                var deliveredOrders = db.Orders.Where(o => o.Product.Seller_Id == (int)Session["Seller_Id"] && o.Delivery_Date < current).ToList();
-                var deliveredProducts = deliveredOrders.Select(o => o.Order_Id).ToList();
-                //var ans = deliveredProducts.ToLookup(ProductOrder.Equals(deliveredOrders));
+                int ids = (int)Session["Seller_Id"];
+                var data = db.ProductOrders.Where(o => o.Order_Size=="Done" && o.Seller_Id == ids).ToList();
+                int id = (int)Session["Seller_Id"];
+                var count = db.ProductOrders.Count(o => o.Seller_Id == id);
+                ViewBag.con = count;
 
+                return View(data);
+            }
+            return RedirectToAction("Login");
+        }
 
-
-                return View(deliveredProducts);
+        public ActionResult OrderDone(int id)
+        {
+            if (Session["Seller_Id"] != null)
+            {
+                var data = db.ProductOrders.Find( id);
+                data.Order_Size = "Done";
+                db.SaveChanges();
+                return RedirectToAction("OrderListDeli");
             }
             return RedirectToAction("Login");
         }
@@ -313,13 +326,17 @@ namespace VogueLink2.Controllers
             if (Session["Seller_Id"] != null)
             {
                 DateTime current = DateTime.Now;
-                var deliveredOrders = db.Orders.Where(o => o.Product.Seller_Id == (int)Session["Seller_Id"] && o.Delivery_Date == current).ToList();
-
-                var deliveredProducts = deliveredOrders.Select(o => o.Product).Distinct().ToList();
-
-                return View(deliveredProducts);
+                int id = (int)Session["Seller_Id"];
+                var data = db.ProductOrders.Where(o => o.Order_Size != "Done" && o.Seller_Id == id).ToList();
+                return View(data);
             }
             return RedirectToAction("Login");
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("AllProduct", "Home");
         }
     }
 }

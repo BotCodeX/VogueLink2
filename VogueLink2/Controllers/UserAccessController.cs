@@ -52,7 +52,7 @@ namespace VogueLink2.Controllers
         public ActionResult Logout()
         {
             Session.Clear();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("AllProduct", "Home");
         }
 
 
@@ -73,7 +73,7 @@ namespace VogueLink2.Controllers
                 Session["Customer_Pass"] = cus.Customer_Pass.ToString();
                 Session["Customer_Id"] = checklogin.Customer_Id;
                 Session["Customer_FName"] = checklogin.Customer_FName;
-                return RedirectToAction("Dashboard");
+                return RedirectToAction("AllProduct" , "Home");
             }
             else
             {
@@ -346,6 +346,8 @@ namespace VogueLink2.Controllers
                 db.Orders.Add(newOrder);
                 db.SaveChanges();
 
+                Session["DelDate"] = DateTime.Now.AddDays(5);
+
                 int newOrderId = newOrder.Order_Id;
                 Session["neworder"] = newOrderId;
 
@@ -370,13 +372,18 @@ namespace VogueLink2.Controllers
 
                 foreach (var cartItem in cartItems)
                 {
+                    //new
+                    var seller = db.Products.Find(cartItem.Product_Id);
+
+
                     var newPO = new ProductOrder
                     {
                         Order_Price = cartItem.Price,
                         Order_Quantity = cartItem.Quantity,
                         Order_Size = cartItem.Product_Size,
                         Product_Id = cartItem.Product_Id,
-                        Order_Id = newOrderId
+                        Order_Id = newOrderId,
+                        Seller_Id = seller.Seller_Id
                     };
   
                     db.ProductOrders.Add(newPO);
@@ -392,5 +399,29 @@ namespace VogueLink2.Controllers
             }
             return RedirectToAction("Login");
         }
+
+        public ActionResult OrderList()
+        {
+            if (Session["Customer_Id"] != null )
+            {
+                int cid = (int)Session["Customer_Id"];
+                var order = db.Orders.Where(o => o.Customer_Id == cid).ToList();
+                return View(order);
+            }
+            return RedirectToAction("Login");
+        }
+
+        public ActionResult ConOrder()
+        {
+            if (Session["Customer_Id"] != null)
+            {
+                int id = (int)Session["Customer_Id"];
+                var data = db.Orders.Where(o => o.Customer_Id == id).ToList();
+                return View();
+            }
+            return RedirectToAction("Login");
+            
+        }
+        
     }
 }

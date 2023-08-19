@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "ConOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div style="display: flex; justify-content: center; align-items: center; height: 300px;">
+    <h1>Order Placed</h1><br />
+</div>
+<div style="display: flex; justify-content: center; align-items: center;">
+    <h3>Delivery at</h3><br />
+</div>
+<div style="display: flex; justify-content: center; align-items: center; ">
+    <h3>@Session["DelDate"]</h3>
+</div>
+
+<a href="@Url.Action("AllProduct", "Home")" class="btn btn-success">Next</a>
+

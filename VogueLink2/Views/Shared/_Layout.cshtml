@@ -14,37 +14,121 @@
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="~/Content/stylesHome.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-litera.css" rel="stylesheet" />
 </head>
 <body id="page-top">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#page-top">VogueLink</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars"></i>
+
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">VogueLink</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    @if (Session["Customer_Email"] != null)
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    @if (Session["Seller_Email"] != null)
                     {
-                        <li><p style="color:#000;margin-top:15px;">Hello @Session["Customer_FName"]</p></li>
-                        <li class="nav-item">@Html.ActionLink("Logout", "Logout", "UserAccess")</li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("OrderListDeli", "SellerAccess")">Deivered</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("OrderListtodo", "SellerAccess")">To Do</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("AddProduct", "SellerAccess")">Add Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("UpdateProduct", "SellerAccess")">Update Product</a>
+                        </li>
+                    }
+                    else if (Session["Admin_Email"] != null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Approve", "Admin")">Approve Seller</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("OrderControl", "Admin")">Transactions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("InvoiceControl", "Admin")">Orders</a>
+                        </li>
+
                     }
                     else
                     {
-                        <li class="nav-item">@Html.ActionLink(" SignUp ", "SignUp", "UserAccess")</li>
-                        <li class="nav-item">@Html.ActionLink(" Login ", "Login", "UserAccess")</li>
-                        <li class="nav-item">@Html.ActionLink(" Seller ", "Login", "SellerAccess")</li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("AllProduct", "Home")">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Cart", "UserAccess")">Cart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Favourite", "UserAccess")">Favourite</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("OrderList", "UserAccess")">Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Men", "Home")">Men</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Women", "Home")">Women</a>
+                        </li>
                     }
+
+
                 </ul>
+                <div class="d-flex">
+                    @if (Session["Customer_Email"] != null)
+                    {
+                        <p style="color:#ffffff;margin-top:15px;">
+                            Hello @Session["Customer_FName"]
+                            <a class="nav-item">@Html.ActionLink("Logout", "Logout", "UserAccess")</a>
+                        </p>
+                    }
+                    else if (Session["Seller_Email"] != null)
+                    {
+                        <p style="color:#ffffff;margin-top:15px;">
+                            Hello @Session["Seller_BrandName"]
+                            <a class="nav-item">@Html.ActionLink("Logout", "Logout", "SellerAccess")</a>
+                        </p>
+                    }
+                    else if (Session["Admin_Email"] != null)
+                    {
+                        <p style="color:#ffffff;margin-top:15px;">
+                            Hello @Session["Admin_Name"]
+                            <a class="nav-item">@Html.ActionLink("Logout", "Logout", "AdminAccess")</a>
+                        </p>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: #ffffff;">Access   .</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="@Url.Action("Login", "UserAccess")">Login</a>
+                                <a class="dropdown-item" href="@Url.Action("Signup", "UserAccess")">SignUp</a>
+                                <a class="dropdown-item" href="@Url.Action("Login", "SellerAccess")">Seller</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="@Url.Action("AdminLogin", "AdminAccess")">Admin</a>
+                            </div>
+                        </li>
+
+                    }
+                </div>
             </div>
         </div>
     </nav>
+
     <div class="container body-content">
         @RenderBody()
-        
+
 
         <!-- Contact-->
         <section class="contact-section bg-black">
@@ -105,7 +189,7 @@
     </div>
 
     <script src="~/Scripts/scripts.js"></script>
-    
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

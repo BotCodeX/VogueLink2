@@ -5,8 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>OrderListtodo</h2>
-
+<h2>Order To Do</h2>
 
 <table class="table">
     <tr>
@@ -25,6 +24,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Order.Order_Id)
         </th>
+
 
         <th></th>
     </tr>
@@ -47,10 +47,10 @@
             @Html.DisplayFor(modelItem => item.Order.Order_Id)
         </td>
 
+
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.PO_Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.PO_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.PO_Id })
+            @Html.ActionLink("Done", "OrderDone", new { id = item.PO_Id }) 
+            
         </td>
     </tr>
 }

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<VogueLink2.Models.Invoice>
+
+@{
+    ViewBag.Title = "InvoiceControl";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100px;">
+    <h1>Transactions</h1>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Order.Customer.Customer_FName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Order.Order_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice_PaymentMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice_PaymentStatus)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order.Customer.Customer_FName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order.Order_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_PaymentMethod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice_PaymentStatus)
+        </td>
+    </tr>
+}
+
+</table>

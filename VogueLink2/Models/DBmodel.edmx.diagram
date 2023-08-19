@@ -32,6 +32,7 @@
         <EntityTypeShape EntityType="voguelinkModel.ProductOrder" Width="1.5" PointX="10.5" PointY="9" />
         <AssociationConnector Association="voguelinkModel.FK__ProductOr__Order__03F0984C" />
         <AssociationConnector Association="voguelinkModel.FK__ProductOr__Produ__02FC7413" />
+        <AssociationConnector Association="voguelinkModel.FK__ProductOr__Selle__14270015" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

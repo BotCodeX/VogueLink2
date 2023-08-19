@@ -1,0 +1,79 @@
+﻿@model IEnumerable<VogueLink2.Models.ProductOrder>
+
+@{
+    ViewBag.Title = "OrderControl";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100px;">
+    <h1>Orders</h1>
+</div>
+
+
+<div style="margin-top: 40px;">
+    <form action="@Url.Action("Search","Admin")" method="get" style="display: flex; align-items: center; margin-bottom: 40px;">
+        <select name="category" style="padding: 10px; border: 1px solid #ccc; border-radius: 20px 0 0 20px; background-color: #000000; color: white; width: 80px;">
+            <option value="all">Select Category</option>
+            
+            <option value="brand">Brand</option>
+ 
+        </select>
+        <input type="text" name="searchText" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 0; margin: 0;" placeholder="Search...">
+        <button type="submit" style="padding: 10px 20px; background-color: #000000; border: none; border-radius: 0 20px 20px 0; color: white; width: 100px;">Search</button>
+    </form>
+</div>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Seller.Seller_BrandName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Product_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Order_Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Order_Quantity)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Order.Order_Id)
+        </th>
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seller.Seller_BrandName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Product_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order_Quantity)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.Order_Id)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PO_Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.PO_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PO_Id })
+            </td>
+        </tr>
+    }
+
+</table>

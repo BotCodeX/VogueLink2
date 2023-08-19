@@ -25,7 +25,5 @@ namespace VogueLink2.Models
         public virtual Customer Customer { get; set; }
         public virtual Product Product { get; set; }
         public virtual PromoCode PromoCode { get; set; }
-
-       
     }
 }

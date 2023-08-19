@@ -98,7 +98,18 @@ namespace VogueLink2.Controllers
             return View("AllProduct");
         }
 
-        
+        public ActionResult Men()
+        {
+            var data = db.Products.Where(o => o.Product_Gender == "male").ToList();
+            return View("AllProduct", data);
+        }
+
+        public ActionResult Women()
+        {
+            var data = db.Products.Where(o => o.Product_Gender == "female").ToList();
+            return View("AllProduct", data);
+        }
+
 
         public ActionResult Filter(string lowPrice, string highPrice)
         {
@@ -117,7 +128,37 @@ namespace VogueLink2.Controllers
             return View("AllProduct",data);
         }
 
+        public ActionResult AddCom(int id)
+        {
+            if (Session["com1"] != null)
+            {
+                Session["com1"] = id;
+            }
+            if (Session["com2"] != null)
+            {
+                Session["com2"] = id;
+            }
+            return RedirectToAction("Compare");
+        }
 
-        
+        public ActionResult Compare()
+        {
+            if (Session["com2"] != null)
+            {
+                int id = (int)Session["com1"];
+                var data1 = db.Products.Find(id);
+                int ids = (int)Session["com2"];
+                var data2 = db.Products.Find(ids);
+
+                var viewModel = new ProductCompare
+                {
+                    Product1 = data1,
+                    Product2 = data2
+                };
+
+                return View(viewModel);
+            }
+            return View();
+            }
+        }
     }
-}

@@ -20,6 +20,7 @@ namespace VogueLink2.Controllers
        
         public ActionResult Approve()
         {
+
             return View(db.Sellers.ToList());
         }
 
@@ -57,6 +58,55 @@ namespace VogueLink2.Controllers
             item.Seller_Status = "Rejected";
             db.SaveChanges();
             return RedirectToAction("SelllerDetails", new { id = item.Seller_Id});
+        }
+
+        public ActionResult OrderControl()
+        {
+            if (Session["Admin_Email"] != null)
+            {
+                var data = db.ProductOrders.ToList();
+                return View(data);
+            }
+            return RedirectToAction("AdminLogin");
+        }
+
+        public ActionResult Search(string searchText , string category)
+        {
+            if(category == "all" || searchText == null)
+            {
+                var data = db.ProductOrders.ToList();
+                return View("OrderControl",data);
+            }
+            else if(category == "brand")
+            {
+                var data = db.Sellers.SqlQuery("SELECT * FROM Seller WHERE Seller_BrandName LIKE '%' + @p0 + '%'", searchText).FirstOrDefault();
+                int id = data.Seller_Id;
+                var res = db.ProductOrders.Where(s => s.Seller_Id == id).ToList();
+                return View("OrderControl", res);
+            }
+            /*
+            else if(category=="name")
+            {
+                var data = db.Sellers.SqlQuery("SELECT * FROM Customer WHERE Customer_FName LIKE '%' + @p0 + '%'", searchText).FirstOrDefault();
+                int id = data.Seller_Id;
+                var res = db.ProductOrders.Where(s => s.Order_Id.).ToList();
+                return View("OrderControl", res);
+            }*/
+            else
+            {
+                var data = db.ProductOrders.ToList();
+                return View("OrderControl", data);
+            }
+        }
+
+        public ActionResult InvoiceControl()
+        {
+            if (Session["Admin_Email"] != null)
+            {
+                var data = db.Invoices.ToList();
+                return View(data);
+            }
+            return RedirectToAction("AdminLogin");
         }
 
         /*

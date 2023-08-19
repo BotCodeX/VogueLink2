@@ -5,7 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>OrderListDeli</h2>
+<h2>Delivered Order List</h2>
+
+<h4>Delivered Product <br /> @ViewBag.con</h4>
 
 
 <table class="table">
@@ -22,33 +24,29 @@
         <th>
             @Html.DisplayNameFor(model => model.Order_Size)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Order.Order_Id)
-        </th>
-
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product.Product_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Order_Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Order_Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Order_Size)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Order.Order_Id)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Product_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order_Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order_Size)
+            </td>
+            <td>
+                @Html.ActionLink("Done", "OrderDone", new { id = item.PO_Id }) |
 
-
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
